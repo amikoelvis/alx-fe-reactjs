@@ -3,7 +3,7 @@ import { UserContext } from "./UserContext";
 
 function UserDetails({ userData }) {
 
-const userData = useContext(UserContext)
+const userData = useContext(UserContext);
 
     return (
       <div>
