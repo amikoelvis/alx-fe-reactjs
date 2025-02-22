@@ -1,20 +1,23 @@
-import React, { useState } from 'react'
+import { useState } from 'react';
 
-function Contact() {
+   function Contact() {
+     const [formData, setFormData] = useState({
+       name: '',
+       email: '',
+       message: ''
+     });
 
-    const [formData, setFormData] = useState({ name: '', email: '', message: '' });
- 
-      const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-      };
- 
-      const handleSubmit = (e) => {
-        e.preventDefault();
-        alert('Form submitted!');
-      };
+     const handleChange = (e) => {
+       setFormData({ ...formData, [e.target.name]: e.target.value });
+     };
 
-  return (
-    <div style={{ padding: '20px' }}>
+     const handleSubmit = (e) => {
+       e.preventDefault();
+       alert('Form submitted!');
+     };
+
+     return (
+       <div style={{ padding: '20px' }}>
          <h1>Contact Us</h1>
          <form onSubmit={handleSubmit}>
            <input
@@ -43,7 +46,7 @@ function Contact() {
            <button type="submit">Send Message</button>
          </form>
        </div>
-  )
-}
+     );
+   }
 
-export default Contact
+   export default Contact;
