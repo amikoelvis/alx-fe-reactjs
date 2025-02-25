@@ -1,5 +1,5 @@
 // src/components/RecipeList.jsx
-import useRecipeStore from './useRecipeStore';
+import useRecipeStore from './recipeStore';
 
 const RecipeList = () => {
   const recipes = useRecipeStore((state) => state.recipes);
