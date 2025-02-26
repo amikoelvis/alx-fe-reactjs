@@ -1,30 +1,35 @@
-import { Link } from 'react-router-dom';
-import useRecipeStore from './recipeStore';
+import { Link } from "react-router-dom";
+import useRecipeStore from "./recipeStore";
 
 const FavoritesList = () => {
-  const favorites = useRecipeStore((state) =>
-    state.favorites.map((id) => state.recipes.find((recipe) => recipe.id === id))
-  );
+  // Select favorites and recipes separately to avoid unnecessary re-renders
+  const favorites = useRecipeStore((state) => state.favorites);
+  const recipes = useRecipeStore((state) => state.recipes);
+
+  // Compute the favorite recipes outside of the Zustand selector
+  const favoriteRecipes = favorites
+    .map((id) => recipes.find((recipe) => recipe.id === id))
+    .filter(Boolean); // Remove undefined values
 
   return (
-    <div style={{ marginTop: '20px' }}>
+    <div style={{ marginTop: "20px" }}>
       <h2>My Favorites</h2>
-      {favorites.length === 0 ? (
+      {favoriteRecipes.length === 0 ? (
         <p>No favorite recipes yet.</p>
       ) : (
-        favorites.map((recipe) => (
+        favoriteRecipes.map((recipe) => (
           <div
             key={recipe.id}
             style={{
-              border: '1px solid #ccc',
-              padding: '10px',
-              marginBottom: '10px',
-              borderRadius: '4px',
+              border: "1px solid #ccc",
+              padding: "10px",
+              marginBottom: "10px",
+              borderRadius: "4px",
             }}
           >
-            <Link to={`/recipe/${recipe.id}`} style={{ textDecoration: 'none', color: '#333' }}>
-              <h3 style={{ margin: '0 0 5px 0' }}>{recipe.title}</h3>
-              <p style={{ margin: '0' }}>{recipe.description}</p>
+            <Link to={`/recipe/${recipe.id}`} style={{ textDecoration: "none", color: "#333" }}>
+              <h3 style={{ margin: "0 0 5px 0" }}>{recipe.title}</h3>
+              <p style={{ margin: "0" }}>{recipe.description}</p>
             </Link>
           </div>
         ))
