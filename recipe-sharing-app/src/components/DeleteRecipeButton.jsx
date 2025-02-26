@@ -1,5 +1,5 @@
-// src/components/DeleteRecipeButton.jsx
-import useRecipeStore from './recipeStore'; // Updated import
+import PropTypes from 'prop-types';
+import useRecipeStore from './recipeStore';
 import { useNavigate } from 'react-router-dom';
 
 const DeleteRecipeButton = ({ recipeId }) => {
@@ -26,6 +26,10 @@ const DeleteRecipeButton = ({ recipeId }) => {
       Delete Recipe
     </button>
   );
+};
+
+DeleteRecipeButton.propTypes = {
+  recipeId: PropTypes.number.isRequired,
 };
 
 export default DeleteRecipeButton;

@@ -1,20 +1,17 @@
-// src/components/EditRecipeForm.jsx
+import PropTypes from 'prop-types';
 import { useState } from 'react';
-import useRecipeStore from './recipeStore'; // Updated import
-import { useNavigate } from 'react-router-dom';
+import useRecipeStore from './recipeStore';
 
 const EditRecipeForm = ({ recipe }) => {
-  const updateRecipe = useRecipeStore((state) => state.updateRecipe); // Updated select
-  const [title, setTitle] = useState(recipe.title); // Updated state initialization
-  const [description, setDescription] = useState(recipe.description); // Updated state initialization
-  const navigate = useNavigate();
+  const updateRecipe = useRecipeStore((state) => state.updateRecipe);
+  const [title, setTitle] = useState(recipe.title);
+  const [description, setDescription] = useState(recipe.description);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!title.trim() || !description.trim()) return;
     updateRecipe({ ...recipe, title, description });
-    navigate('/');
-  }; // Updated action call
+  };
 
   return (
     <form
@@ -49,6 +46,14 @@ const EditRecipeForm = ({ recipe }) => {
       </button>
     </form>
   );
+};
+
+EditRecipeForm.propTypes = {
+  recipe: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default EditRecipeForm;
