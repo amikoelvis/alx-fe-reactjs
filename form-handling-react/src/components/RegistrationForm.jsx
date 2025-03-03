@@ -1,35 +1,43 @@
 import { useState } from 'react';
 
 const RegistrationForm = () => {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: ''
-  });
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  }; // Update the form data when the user types in the input fields
+    switch (name) {
+      case 'username':
+        setUsername(value);
+        break;
+      case 'email':
+        setEmail(value);
+        break;
+      case 'password':
+        setPassword(value);
+        break;
+      default:
+        break;
+    }
+  };
 
   const validate = () => {
     const newErrors = {};
-    if (!formData.username) newErrors.username = 'Username is required';
-    if (!formData.email) newErrors.email = 'Email is required';
-    if (!formData.password) newErrors.password = 'Password is required';
+    if (!username) newErrors.username = 'Username is required';
+    if (!email) newErrors.email = 'Email is required';
+    if (!password) newErrors.password = 'Password is required';
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
-  }; // Validate the form data
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Prevent the default form submission
-    if (!validate()) return; // Validate the form data
+    e.preventDefault();
+    if (!validate()) return;
 
     try {
+      const formData = { username, email, password };
       // Mock API call
       const response = await fetch('https://mock-api.example.com/register', {
         method: 'POST',
@@ -39,7 +47,9 @@ const RegistrationForm = () => {
       
       if (response.ok) {
         console.log('Registration successful');
-        setFormData({ username: '', email: '', password: '' });
+        setUsername('');
+        setEmail('');
+        setPassword('');
       }
     } catch (error) {
       console.error('Registration failed:', error);
@@ -55,7 +65,7 @@ const RegistrationForm = () => {
           <input
             type="text"
             name="username"
-            value={formData.username}
+            value={username}
             onChange={handleChange}
           />
           {errors.username && <span style={{ color: 'red' }}>{errors.username}</span>}
@@ -66,7 +76,7 @@ const RegistrationForm = () => {
           <input
             type="email"
             name="email"
-            value={formData.email}
+            value={email}
             onChange={handleChange}
           />
           {errors.email && <span style={{ color: 'red' }}>{errors.email}</span>}
@@ -77,7 +87,7 @@ const RegistrationForm = () => {
           <input
             type="password"
             name="password"
-            value={formData.password}
+            value={password}
             onChange={handleChange}
           />
           {errors.password && <span style={{ color: 'red' }}>{errors.password}</span>}
