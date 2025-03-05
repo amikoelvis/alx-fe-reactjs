@@ -1,6 +1,6 @@
 // src/components/Login.jsx
 import { useNavigate } from 'react-router-dom';
-import useAuth from './useAuth';
+import { useAuth } from './AuthContext'; // Updated import
 
 function Login() {
   const { isAuthenticated, login, logout } = useAuth();

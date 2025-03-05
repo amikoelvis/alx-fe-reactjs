@@ -1,6 +1,6 @@
 // src/components/Navbar.jsx
 import { NavLink, useNavigate } from 'react-router-dom';
-import useAuth from './useAuth';
+import { useAuth } from './AuthContext'; // Updated import
 
 function Navbar() {
   const { isAuthenticated, login, logout } = useAuth();
@@ -31,11 +31,10 @@ function Navbar() {
       </NavLink>{' '}
       |{' '}
       <NavLink
-        to="/blog"
+        to="/blog/123"
         className={({ isActive }) => (isActive ? 'active' : '')}
-        end
       >
-        Blog
+        Sample Blog
       </NavLink>{' '}
       |{' '}
       {isAuthenticated ? (

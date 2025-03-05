@@ -5,18 +5,17 @@ const ProfileDetails = () => <h3>Profile Details</h3>;
 const ProfileSettings = () => <h3>Profile Settings</h3>;
 
 function Profile() {
-  const navigate = useNavigate(); // For programmatic navigation
-
+  const navigate = useNavigate();
   return (
     <div>
       <h2>Profile Page</h2>
-      <nav>
+      {<nav>
         <ul>
           <li><Link to="details">Details</Link></li>
           <li><Link to="settings">Settings</Link></li>
           <li><button onClick={() => navigate(-1)}>Go Back</button></li>
         </ul>
-      </nav>
+      </nav>}
       <Routes>
         <Route path="details" element={<ProfileDetails />} />
         <Route path="settings" element={<ProfileSettings />} />
