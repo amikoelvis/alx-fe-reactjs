@@ -1,38 +1,35 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Home from './components/Home';
+// src/App.jsx
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar'; // Updated import
 import Profile from './components/Profile';
-import BlogPost from './components/BlogPost';
+import BlogPost from './components/BlogPost'; // Updated import
+import Login from './components/Login';
 import ProtectedRoute from './components/ProtectedRoute';
-import ProfileDetails from './components/ProfileDetails';
-import ProfileSettings from './components/ProfileSettings';
-import Navbar from './components/Navbar';
-import ErrorBoundary from './components/ErrorBoundary';
+
+const Home = () => <h2>Home Page</h2>;
+const NotFound = () => <h2>404 - Page Not Found</h2>;
 
 function App() {
-  const isAuthenticated = true;
-
   return (
-    <ErrorBoundary>
-      <BrowserRouter>
+    <Router>
+      <div>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route
-            path="/profile"
+            path="/profile/*"
             element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <ProtectedRoute>
                 <Profile />
               </ProtectedRoute>
             }
-          >
-            <Route path="details" element={<ProfileDetails />} />
-            <Route path="settings" element={<ProfileSettings />} />
-          </Route>
-          <Route path="/blog/:id" element={<BlogPost />} />
-          <Route path="*" element={<Navigate to="/" />} />
+          />
+          <Route path="/blog/*" element={<BlogPost />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
-    </ErrorBoundary>
+      </div>
+    </Router>
   );
 }
 
