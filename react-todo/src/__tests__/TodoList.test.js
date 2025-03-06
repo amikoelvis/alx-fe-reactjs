@@ -3,13 +3,15 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import TodoList from '../TodoList';
 
+// Test Suite for TodoList Component
 describe('TodoList Component', () => {
+  
   // Test 1: Initial Render
   test('renders initial todos', () => {
     render(<TodoList />);
     expect(screen.getByText('Learn React')).toBeInTheDocument();
     expect(screen.getByText('Build a todo app')).toBeInTheDocument();
-    expect(screen.getAllByRole('listitem').length).toBe(2);
+    expect(screen.getAllByRole('listitem')).toHaveLength(2);
   });
 
   // Test 2: Adding Todos
@@ -22,7 +24,7 @@ describe('TodoList Component', () => {
     fireEvent.click(addButton);
 
     expect(screen.getByText('Test todo')).toBeInTheDocument();
-    expect(screen.getAllByRole('listitem').length).toBe(3);
+    expect(screen.getAllByRole('listitem')).toHaveLength(3);
     expect(input).toHaveValue('');
   });
 
@@ -51,7 +53,7 @@ describe('TodoList Component', () => {
 
     fireEvent.click(deleteButtons[0]);
     
-    expect(screen.getAllByRole('listitem').length).toBe(initialLength - 1);
+    expect(screen.getAllByRole('listitem')).toHaveLength(initialLength - 1);
     expect(screen.queryByText('Learn React')).not.toBeInTheDocument();
   });
 });
