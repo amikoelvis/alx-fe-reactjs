@@ -1,72 +1,58 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-function TodoList() {
+const TodoList = () => {
   const [todos, setTodos] = useState([
-    { id: 1, text: 'Learn React', completed: false },
-    { id: 2, text: 'Build a todo app', completed: false },
+    { text: 'Learn React', completed: false },
+    { text: 'Build a todo app', completed: false },
   ]);
   const [newTodo, setNewTodo] = useState('');
 
-  const addTodo = (e) => {
-    e.preventDefault();
-    if (!newTodo.trim()) return;
-    setTodos([
-      ...todos,
-      { id: Date.now(), text: newTodo, completed: false },
-    ]);
-    setNewTodo('');
+  const addTodo = () => {
+    if (newTodo.trim()) {
+      setTodos([...todos, { text: newTodo, completed: false }]);
+      setNewTodo('');
+    }
   };
 
-  const toggleTodo = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
+  const toggleTodo = (index) => {
+    const updatedTodos = todos.map((todo, i) =>
+      i === index ? { ...todo, completed: !todo.completed } : todo
     );
+    setTodos(updatedTodos);
   };
 
-  const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
+  const deleteTodo = (index) => {
+    const updatedTodos = todos.filter((_, i) => i !== index);
+    setTodos(updatedTodos);
   };
 
   return (
     <div>
-      <h1>Todo List</h1>
-      <form onSubmit={addTodo}>
-        <input
-          type="text"
-          value={newTodo}
-          onChange={(e) => setNewTodo(e.target.value)}
-          placeholder="Add new todo"
-          data-testid="todo-input"
-        />
-        <button type="submit" data-testid="add-button">Add</button>
-      </form>
-      <ul data-testid="todo-list">
-        {todos.map((todo) => (
+      <ul>
+        {todos.map((todo, index) => (
           <li
-            key={todo.id}
+            key={index}
+            role="listitem"
+            onClick={() => toggleTodo(index)}
             style={{
               textDecoration: todo.completed ? 'line-through' : 'none',
             }}
           >
-            <span
-              onClick={() => toggleTodo(todo.id)}
-              data-testid={`todo-item-${todo.id}`}
-            >
-              {todo.text}
-            </span>
-            <button
-              onClick={() => deleteTodo(todo.id)}
-              data-testid={`delete-button-${todo.id}`}
-            >
-              Delete
-            </button>
+            {todo.text}
+            <button onClick={() => deleteTodo(index)}>Delete</button>
           </li>
         ))}
       </ul>
+      <input
+        data-testid="todo-input"
+        value={newTodo}
+        onChange={(e) => setNewTodo(e.target.value)}
+      />
+      <button data-testid="add-button" onClick={addTodo}>
+        Add Todo
+      </button>
     </div>
   );
-}
+};
 
 export default TodoList;
