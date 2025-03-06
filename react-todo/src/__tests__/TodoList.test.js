@@ -4,9 +4,9 @@ import { test, expect } from '@jest/globals';
 import TodoList from '../components/TodoList';
 
 test('renders initial todos', () => {
-  const { getByText } = render(<TodoList />);
-  expect(getByText('Learn React')).toBeInTheDocument();
-  expect(getByText('Build a todo app')).toBeInTheDocument();
+    const { getByText } = render(<TodoList />);
+    expect(getByText('Learn React')).toBeInTheDocument();
+    expect(getByText('Build a todo app')).toBeInTheDocument();
 });
 
 test('adds a new todo', () => {
