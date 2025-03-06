@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { test, expect } from '@jest/globals';
-import TodoList from '../TodoList';
+import TodoList from '../components/TodoList';
 
 test('renders initial todos', () => {
   const { getByText } = render(<TodoList />);
