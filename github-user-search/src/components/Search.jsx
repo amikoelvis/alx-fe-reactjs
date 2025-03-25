@@ -19,7 +19,7 @@ const Search = () => {
       const data = await fetchUserData(username, location, repos);
       setUsers(data);
     } catch (err) {
-      setError("No users found. Try different criteria.");
+      setError("Looks like we cant find the user");
     } finally {
       setLoading(false);
     }
