@@ -2,12 +2,12 @@ import axios from "axios";
 
 const BASE_URL = "https://api.github.com/search/users?q=";
 
-export const fetchUsers = async (username, location, repos) => {
+export const fetchUsers = async (username, location, minRepos) => {
   let query = "";
 
   if (username) query += `${username} in:login `;
   if (location) query += `location:${location} `;
-  if (repos) query += `repos:>${repos} `;
+  if (minRepos) query += `repos:>${minRepos} `;
 
   if (!query.trim()) throw new Error("Please enter at least one search criterion.");
 
